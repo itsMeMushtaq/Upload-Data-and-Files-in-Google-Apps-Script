@@ -32,7 +32,7 @@ function doGet (e) {
 // let link = newFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW).getDownloadUrl();
 function addData(formData) {
   try {
-    let uploadingFolder = DriveApp.getFolderById("17kUPf7ZAiLiUuKeR2DAEQGtvUBZQAhqM");
+    let uploadingFolder = DriveApp.getFolderById("GOOGLE_FOLDER_ID_COMES_HERE");
     let attachment_a = uploadingFolder.createFile(formData.attachment_a).setName(formData.cnic + "_a.jpg").setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
     //console.log("attachment_a = " + attachment_a.getId());    
     let attachment_b = uploadingFolder.createFile(formData.attachment_b).setName(formData.cnic + "_b.jpg").setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
