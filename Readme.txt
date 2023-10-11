@@ -7,4 +7,4 @@ Columns in Google Sheet
 
 Sheet Name: Data
 
-Must Create a Folder in Google Drive Take it ID to Store Files/Images as coded in form.html
+Must Create a Folder in Google Drive Take it ID to Store Files/Images as coded in Code.gs
