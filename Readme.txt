@@ -6,3 +6,5 @@ Columns in Google Sheet
 5. attachment_c
 
 Sheet Name: Data
+
+Must Create a Folder in Google Drive Take it ID to Store Files/Images as coded in form.html
