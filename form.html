@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Toastify -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap 5.2.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <title>Welcome to Google Apps Scripts ... Multi-Uploader Demo</title>
+</head>
+
+<body>
+  <div class="d-flex aligns-items-center justify-content-center my-2">
+    <div class="row">
+      <div class="col-sm-2 text-center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/State_emblem_of_Pakistan.svg/1786px-State_emblem_of_Pakistan.svg.png" height="130" alt="Ministry of Religious Affairs & Interfaith Harmony">
+      </div>
+      <div class="col-sm-10">
+        <div class="container mt-3">
+          <h3 align="center">Ministry of Religious Affairs &amp; Interfaith Harmony</h3>
+        </div>
+        <div class="container mt-3">
+          <div class="alert alert-success pt-1 pb-0">
+            <h3 align="center">Google Apps Scripts ... Multi-Uploader Demo</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="alert alert-dark text-center py-1" id="msg">
+      <strong>Important!</strong> Welcome to Online Recruitment System v3.1.3 developed on 28-Aug-2021 10:50 pm by Mushtaque Asghar.
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 bg-warning text-white d-none d-sm-none d-md-block text-center rounded" id="left_bar">
+          <h3 class="text-center text-black-50">Multi-Uploader</h3>
+          <img alt="Register Now" class="img-fluid" width="75%" src="https://png.pngtree.com/png-vector/20220825/ourmid/pngtree-register-now-label-with-megaphone-transparent-background-vector-illustration-design-png-image_6123775.png" />
+          <div class="container text-center">
+            <a class="btn btn-outline-dark" href="<?= url ?>?vu=viewData" target="_blank" >View Data</a>
+          </div>
+        </div>
+
+        <div class="col-sm-9 rounded">
+          <!-- Form Begins Here -->
+          <form id="dataForm" method="post" name="dataForm">
+
+            <div class="form-floating mb-2">
+              <input type="text" class="form-control form-control-sm" id="name" name="name" onblur="this.value=this.value.replace(/\s+/g, ' ').trim().toUpperCase();" onkeyup="this.value=this.value.replace(/[^a-zA-Z\.\-\s]/g,'');" pattern="[A-za-z\.\-\s]{3,}" placeholder="Please type-in your Full Name" required />
+              <label class="control-label" for="name">Full Name</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input type="text" class="form-control form-control-sm" id="cnic" name="cnic" maxlength="13" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" pattern="[1-8]{1}[0-9]{12}" placeholder="Please type-in your CNIC Number" required />
+              <label class="control-label" for="cnic">CNIC Number</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input type="file" accept="image/jpeg" id="attachment_a" name="attachment_a" class="form-control form-control-sm" required />
+              <label class="control-label" for="attachment_a">Please select attachment_a</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input type="file" accept="image/jpeg" id="attachment_b" name="attachment_b" class="form-control form-control-sm" required />
+              <label class="control-label" for="attachment_b">Please select attachment_b</label>
+            </div>
+
+            <div class="form-floating mb-2">
+              <input type="file" accept="image/jpeg" id="attachment_c" name="attachment_c" class="form-control form-control-sm" required />
+              <label class="control-label" for="attachment_c">Please select attachment_c</label>
+            </div>
+
+            <div class="d-grid gap-3">
+              <button class="btn btn-lg btn-warning btn-block" id="btnSubmit" type="submit">REGISTER <i class="fas fa-arrow-alt-circle-right"></i></button>
+            </div>
+          </form>
+          <!-- Form Ends Here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div align="center" class="alert alert-danger my-2" id="Disclaimer">
+      <b>Disclaimer: </b>Please use PC/Desktop Computer along with Any Standard Browser like Chrome etc for smoother
+      Data Entry. Some Mobile devices may create inconvenience for users in Registration Process, which is regretted in
+      advance.
+    </div>
+  </div>
+
+  <!-- ################## -->
+  <!-- SECTION FOR FOOTER -->
+  <!-- ################## -->
+  <div class="container-fluid py-2 text-center" id="footer" style="font-size: 0.85rem;">
+    &copy; All Rights reserved, 2020-<?= new Date().getFullYear(); ?>,
+    <a href="http://www.mora.gov.pk" target="_blank">MoRA & IH :: Online Recruitment System</a>, v3.1.3, 28-Aug-2021
+    10:50 pm, <a href="mailto:mushtaq@mora.gov.pk" target="_blank">Mushtaque Asghar</a>
+  </div>
+  <script>
+    /*##################*/
+    /* DOCUMENT LOADING */
+    /*##################*/
+    window.addEventListener('DOMContentLoaded', (e) => { 
+      document.getElementById("name").focus();
+      console.log("URL = " + <?= url ?>);
+      //let link = url + "?vu=vuData"; console.log(link);
+      console.log("Welcome to Online Recruitment System v3.1.3 developed on 28-Aug-2021 10:50 pm by Mushtaque Asghar");
+      let dataForm = document.getElementById('dataForm');
+    }); // end of window.addEventListener('DOMContentLoaded', (e) => {})
+
+    /*##########################*/
+    /* HANDLING FORM SUBMISSION */
+    /*##########################*/
+    dataForm.addEventListener('submit', (e) => { 
+      e.preventDefault(); btnSubmit.disabled = true; var txtMessage = "";
+      btnSubmit.innerHTML = 'PLEASE WAIT TILL IT FINISHES ... <i class="fa-regular fa-hourglass-half"></i>';
+      
+      // Let's Conquer Kashmir
+      google.script.run.
+      withSuccessHandler(isRegistered => {
+        if (isRegistered) {
+          btnSubmit.disabled = false; 
+          document.getElementById("cnic").focus();
+          document.getElementById("cnic").select();
+          btnSubmit.innerHTML = 'REGISTER <i class="fas fa-arrow-alt-circle-right"></i>';
+          say("Oooops .... User is already registered into System!", bgColors[1]);
+        } // end of if
+        else {
+          google.script.run.
+          withSuccessHandler(response => { console.log(response);
+            if (response) { say("Congratulations! Data Added into System!",bgColors[0]); } // end of if
+            else { say("Ooooops ... Something is Fishy ... Unable to Save Data into System!",bgColors[1]);} // end of else
+            dataForm.reset(); btnSubmit.disabled = false; document.getElementById("name").focus();
+            btnSubmit.innerHTML = 'REGISTER <i class="fas fa-arrow-alt-circle-right"></i>';
+          }). // end withSuccessHandler()
+          withFailureHandler(error => { alert(error.toString()); }). // end withSuccessHandler()
+          addData(dataForm);
+        } // end of else
+      }).
+      withFailureHandler().
+      isRegistered(cnic.value);
+    }); // end of dataForm.addEventListener('submit', (e))
+
+
+    // https://apvarun.github.io/toastify-js/
+    // https://github.com/apvarun/toastify-js
+
+    var bgColors = [
+      "linear-gradient(to right, #00b09b, #96c93d)",
+      "linear-gradient(to right, #ff5f6d, #ffc371)",
+      "linear-gradient(to right,rgb(106,179,244), rgb(236,71,228))",
+    ];
+
+    function say (message, color = "linear-gradient(to right,rgb(106,179,244), rgb(236,71,228))") {
+      Toastify({
+        text: message,
+        duration: 4500,
+        //destination: "https://github.com/apvarun/toastify-js",
+        //newWindow: true,
+        gravity: "top",
+        position: 'center',
+        close: true,
+        style: {
+          background: color,
+        }
+      }).showToast();      
+    } // end of toast
+  </script>
+</body>
+
+</html>
